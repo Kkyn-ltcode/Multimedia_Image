@@ -74,6 +74,7 @@ if uploaded_file is not None:
     results = results.sort_values(by=['distance']).reset_index(drop=True)
     results['distance'] = results['distance'].apply(lambda x: round(x, 3))
     # # Display image
+    st.write(results)
     show_image(origin_image, results)
 else:
     st.write("Please upload an image.")
