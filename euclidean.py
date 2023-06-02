@@ -13,7 +13,7 @@ def euclidean_distance(feat_1, feat_2):
     return math.sqrt(distance)
 
 def find_similar(img_feature):
-    data = np.load('image_features1.npy')
+    data = np.load('image_features.npy')
     data = pd.DataFrame(data)
     distances = data.copy()[[0]]
     distances.rename(columns={0: 'id'}, inplace=True)
