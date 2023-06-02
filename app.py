@@ -68,7 +68,7 @@ if uploaded_file is not None:
     image_hog = compute_hog(image)
 
     image_feature = np.concatenate([image_hog, image_color])
-
+    print(image_feature.shape)
     results = find_similar(image_feature)
     # results = find_similar(image_hog)
     results = results.sort_values(by=['distance']).reset_index(drop=True)
