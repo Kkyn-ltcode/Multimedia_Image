@@ -10,8 +10,9 @@ from euclidean import find_similar
 st.set_page_config(page_title="Multimedia Image.")
 
 def color_extraction(image):
-    non_white_indices = np.mean(image, axis=2, dtype=np.float16) < 250.0
-    non_white_image = image[non_white_indices]
+    image_tmp = cv2.resize(image, (96, 128))
+    non_white_indices = np.mean(image_tmp, axis=2, dtype=np.float16) < 250.0
+    non_white_image = image_tmp[non_white_indices]
     color_sum = np.sum(non_white_image, axis=0)
     color_weight = [(value / color_sum.sum()) * 100 for value in color_sum]
     image_color = np.average(non_white_image, axis=1, weights=color_weight)
@@ -69,6 +70,7 @@ if uploaded_file is not None:
     image_feature = np.concatenate([image_hog, image_color])
 
     results = find_similar(image_feature)
+    # results = find_similar(image_hog)
     results = results.sort_values(by=['distance']).reset_index(drop=True)
     results['distance'] = results['distance'].apply(lambda x: round(x, 3))
     # # Display image
